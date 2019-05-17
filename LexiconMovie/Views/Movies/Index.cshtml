@@ -10,6 +10,11 @@
         <div class="input-group mb-3">
             <input type="text" name="title" class="form-control" placeholder="Search on title" />
             <div class="input-group-append">
+                <select name="genre" asp-items="Html.GetEnumSelectList<Genre>()" class="form-control">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                </div>
+            <div class="input-group-append">
                 <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i>&emsp;Search</button>
             </div>
         </div>
