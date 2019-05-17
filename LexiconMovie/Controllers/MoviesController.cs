@@ -24,6 +24,13 @@ namespace LexiconMovie.Controllers
             return View(await _context.Movie.ToListAsync());
         }
 
+        public async Task<IActionResult> Filter(string title)
+        {
+            ViewBag.Search = title;
+
+            return View(nameof(Index), await _context.Movie.Where(m =>  m.Title == title).ToListAsync());
+        }
+
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {

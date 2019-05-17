@@ -1,10 +1,24 @@
 ﻿@model IEnumerable<LexiconMovie.Models.Movie>
 
-@{
+    @{
     ViewData["Title"] = "Index";
-}
+    }
 
-<h1>Index</h1>
+    <h1>Index</h1>
 
-<partial name="MovieListPartial" />
+    <form asp-action="Filter">
+        <div class="input-group mb-3">
+            <input type="text" name="title" class="form-control" placeholder="Search on title" />
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i>&emsp;Search</button>
+            </div>
+        </div>
+    </form>
+
+    @*<form asp-action="Filter">
+        <input type="text" name="title" />
+        <button type="submit">Search</button>
+    </form>*@
+
+    <partial name="MovieListPartial" />
 
