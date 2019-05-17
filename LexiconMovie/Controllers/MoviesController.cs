@@ -24,6 +24,32 @@ namespace LexiconMovie.Controllers
             return View(await _context.Movie.ToListAsync());
         }
 
+        public async Task<IActionResult> Index2()
+        {
+            var movies = await _context.Movie.ToListAsync();
+
+            var model = new MovieViewModel()
+            {
+                Movies = movies,
+                Genres = await GetGenresAsync()
+            };
+
+            return View(model);
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
+        {
+            return await _context.Movie
+                .Select(m => m.Genre)
+                .Distinct()
+                .Select(m => new SelectListItem
+                {
+                    Text = m.ToString(),
+                    Value = m.ToString(),
+                })
+                .ToListAsync();
+        }
+
         public async Task<IActionResult> Filter(string title, int? genre)
         {
             ViewBag.Search = title;
@@ -40,8 +66,30 @@ namespace LexiconMovie.Controllers
             return View(nameof(Index), model);
         }
 
-        // GET: Movies/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Filter2(MovieViewModel viewModel)
+        {
+            ViewBag.Search = viewModel.Title;
+
+            var model = string.IsNullOrWhiteSpace(viewModel.Title) ?
+               await _context.Movie.ToListAsync() :
+               await _context.Movie.Where(m => m.Title == viewModel.Title).ToListAsync();
+
+            model = viewModel.Genre == null ?
+                model :
+                model.Where(m => m.Genre == viewModel.Genre).ToList();
+
+            var viewmodel = new MovieViewModel()
+            {
+                Movies = model,
+                Genres = await GetGenresAsync()
+            };
+
+
+            return View(nameof(Index2), viewmodel);
+        }
+
+            // GET: Movies/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
