@@ -77,7 +77,7 @@ namespace LexiconMovie.Controllers
             model = viewModel.Genre == null ?
                 model :
                 model.Where(m => m.Genre == viewModel.Genre).ToList();
-
+            
             var viewmodel = new MovieViewModel()
             {
                 Movies = model,

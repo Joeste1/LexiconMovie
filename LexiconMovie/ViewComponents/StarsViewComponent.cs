@@ -15,7 +15,7 @@ namespace LexiconMovie.ViewComponents
         {
             this.context = context;
         }
-
+          
         public async Task<IViewComponentResult> InvokeAsync(int movieId)
         {
             var movie = await context.Movie.FindAsync(movieId);

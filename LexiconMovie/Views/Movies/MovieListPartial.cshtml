@@ -36,8 +36,8 @@
                 </td>
                 <td>
                     @*@Html.DisplayFor(modelItem => item.Rating)*@
-                    @await Component.InvokeAsync("Stars", new { movieId = item.Id })
-                    
+                    @*@await Component.InvokeAsync("Stars", new { movieId = item.Id })*@
+                    <vc:stars movie-id="@item.Id"/>
 
                 </td>
                 <td>
